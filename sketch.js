@@ -27,4 +27,7 @@ function draw() {
     bArray[i].update(completed);
     bArray[i].display();
   }
+  if (completed == true) {
+    noLoop();
+  }
 }
