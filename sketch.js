@@ -1,24 +1,30 @@
 var b1;
 var b2;
+var numberOfBubbles = 20;
+var bArray = [];
+var completed = false;
 
 function setup() {
   createCanvas(600, 400);
-  b1 = new bubble(250, 200);
-  b2 = new bubble(350, 200);
+  for (var i = 0; i < numberOfBubbles; i++) {
+    bArray[i] = new bubble(0, i * height / numberOfBubbles + (height / numberOfBubbles / 2), i + 1);
+  }
+  textFont("Helvetica");
+  textSize(7);
+  textAlign(CENTER, CENTER);
 }
 
 function draw() {
   background(0);
-
-
-  b1.update();
-  b2.update();
-
-  b1.display();
-  b2.display();
-
-  if (b1.intersects(b2)) {
-    b1.changeColor();
-    b2.changeColor();
+  for (var i = 0; i < numberOfBubbles; i++) {
+    if (bArray[i].finished(width) == true) {
+      completed = true;
+      //check maybe there is a draw
+      for (var j = 0; j < numberOfBubbles; j++) {
+        bArray[j].finished(width);
+      }
+    }
+    bArray[i].update(completed);
+    bArray[i].display();
   }
 }
